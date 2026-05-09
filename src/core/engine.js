@@ -1,5 +1,5 @@
 /**
- * Chai-Tailwind Engine
+ * head-Tailwind Engine
  * Main orchestrator: init, scan, observe, destroy.
  */
 import { loadConfig } from '../config/loader.js';
@@ -27,7 +27,7 @@ export function configure(userConfig = {}) {
 }
 
 /**
- * Initialize Chai-Tailwind: load config, scan DOM, start observing.
+ * Initialize head-Tailwind: load config, scan DOM, start observing.
  * @param {object} [userConfig] - Optional config overrides
  * @param {object} [options]
  * @param {Element} [options.root] - Root element to scan (default: document.body)
@@ -53,7 +53,7 @@ export function init(userConfig = {}, options = {}) {
 }
 
 /**
- * Scan a root element for chai-* classes and apply styles.
+ * Scan a root element for head-* classes and apply styles.
  * @param {Element} [root] - Root element (default: document.body)
  */
 export function scan(root) {
@@ -77,7 +77,7 @@ export function scan(root) {
 }
 
 /**
- * Process a single element: parse its chai-* classes, resolve, and apply.
+ * Process a single element: parse its head-* classes, resolve, and apply.
  * @param {Element} element
  */
 function processElement(element) {
@@ -199,7 +199,7 @@ function handleMutations(mutations) {
  */
 export function registerPlugin(plugin) {
   if (!plugin || !plugin.utilities) {
-    console.warn('[chai-tailwind] Invalid plugin:', plugin);
+    console.warn('[headwind] Invalid plugin:', plugin);
     return;
   }
 

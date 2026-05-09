@@ -1,5 +1,5 @@
 /**
- * Chai-Tailwind Applicator
+ * head-Tailwind Applicator
  * Applies resolved styles to DOM elements.
  * Handles inline styles, responsive (@media), and pseudo-class variants.
  */
@@ -14,8 +14,8 @@ const injectedRules = new Map();
 function getStyleElement() {
   if (styleElement && styleElement.parentNode) return styleElement;
   styleElement = document.createElement('style');
-  styleElement.id = 'chai-tailwind-dynamic';
-  styleElement.setAttribute('data-chai', 'true');
+  styleElement.id = 'headwind-dynamic';
+  styleElement.setAttribute('data-head', 'true');
   document.head.appendChild(styleElement);
   return styleElement;
 }
@@ -24,10 +24,10 @@ function getStyleElement() {
  * Generate a unique ID for an element (for CSS targeting).
  */
 function getElementId(element) {
-  let id = element.getAttribute('data-chai-id');
+  let id = element.getAttribute('data-head-id');
   if (!id) {
-    id = 'chai-' + (++idCounter);
-    element.setAttribute('data-chai-id', id);
+    id = 'head-' + (++idCounter);
+    element.setAttribute('data-head-id', id);
   }
   return id;
 }
@@ -63,7 +63,7 @@ export function applyStyles(element, styleGroups, config) {
     const sheet = getStyleElement();
 
     for (const group of cssRules) {
-      const selector = `[data-chai-id="${elementId}"]`;
+      const selector = `[data-head-id="${elementId}"]`;
       const pseudoSuffix = group.pseudo ? `:${group.pseudo}` : '';
       const declarations = group.declarations
         .map(d => `${camelToKebab(d.property)}: ${d.value}`)
@@ -86,7 +86,7 @@ export function applyStyles(element, styleGroups, config) {
 }
 
 /**
- * Remove processed chai-* classes from an element.
+ * Remove processed head-* classes from an element.
  * @param {Element} element
  * @param {string[]} classNames
  */

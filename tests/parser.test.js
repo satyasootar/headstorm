@@ -13,7 +13,7 @@ describe('Parser', () => {
     });
 
     it('should parse simple utility classes', () => {
-      const result = parseClassName('chai-p-4', config);
+      const result = parseClassName('head-p-4', config);
       expect(result).toBeTruthy();
       expect(result.utility).toBe('p');
       expect(result.value).toBe('4');
@@ -22,14 +22,14 @@ describe('Parser', () => {
     });
 
     it('should parse standalone utilities', () => {
-      const result = parseClassName('chai-flex', config);
+      const result = parseClassName('head-flex', config);
       expect(result).toBeTruthy();
       expect(result.utility).toBe('flex');
       expect(result.value).toBeNull();
     });
 
     it('should parse responsive variants', () => {
-      const result = parseClassName('chai-sm:p-4', config);
+      const result = parseClassName('head-sm:p-4', config);
       expect(result).toBeTruthy();
       expect(result.responsive).toBe('sm');
       expect(result.utility).toBe('p');
@@ -37,7 +37,7 @@ describe('Parser', () => {
     });
 
     it('should parse pseudo variants', () => {
-      const result = parseClassName('chai-hover:bg-red-500', config);
+      const result = parseClassName('head-hover:bg-red-500', config);
       expect(result).toBeTruthy();
       expect(result.pseudo).toBe('hover');
       expect(result.utility).toBe('bg');
@@ -45,7 +45,7 @@ describe('Parser', () => {
     });
 
     it('should parse combined responsive + pseudo variants', () => {
-      const result = parseClassName('chai-md:hover:text-blue-700', config);
+      const result = parseClassName('head-md:hover:text-blue-700', config);
       expect(result).toBeTruthy();
       expect(result.responsive).toBe('md');
       expect(result.pseudo).toBe('hover');
@@ -54,28 +54,28 @@ describe('Parser', () => {
     });
 
     it('should parse arbitrary values', () => {
-      const result = parseClassName('chai-w-[300px]', config);
+      const result = parseClassName('head-w-[300px]', config);
       expect(result).toBeTruthy();
       expect(result.utility).toBe('w');
       expect(result.value).toBe('[300px]');
     });
 
     it('should parse directional spacing', () => {
-      const result = parseClassName('chai-px-4', config);
+      const result = parseClassName('head-px-4', config);
       expect(result).toBeTruthy();
       expect(result.utility).toBe('px');
       expect(result.value).toBe('4');
     });
 
     it('should parse color with shade', () => {
-      const result = parseClassName('chai-bg-red-500', config);
+      const result = parseClassName('head-bg-red-500', config);
       expect(result).toBeTruthy();
       expect(result.utility).toBe('bg');
       expect(result.value).toBe('red-500');
     });
 
     it('should parse compound utilities', () => {
-      const result = parseClassName('chai-flex-col', config);
+      const result = parseClassName('head-flex-col', config);
       expect(result).toBeTruthy();
       expect(result.utility).toBe('flex');
       expect(result.value).toBe('col');
@@ -83,11 +83,11 @@ describe('Parser', () => {
   });
 
   describe('extractChaiClasses', () => {
-    it('should extract only chai-* classes', () => {
+    it('should extract only head-* classes', () => {
       const el = document.createElement('div');
-      el.className = 'chai-p-4 regular-class chai-bg-red-500 another-class';
+      el.className = 'head-p-4 regular-class head-bg-red-500 another-class';
       const classes = extractChaiClasses(el, config);
-      expect(classes).toEqual(['chai-p-4', 'chai-bg-red-500']);
+      expect(classes).toEqual(['head-p-4', 'head-bg-red-500']);
     });
 
     it('should return empty array for no chai classes', () => {

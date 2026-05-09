@@ -1,18 +1,18 @@
 /**
- * Chai-Tailwind Parser
- * Tokenizes a chai-* class name into a structured descriptor object.
+ * head-Tailwind Parser
+ * Tokenizes a head-* class name into a structured descriptor object.
  *
  * Examples:
- *   "chai-p-4"              → { utility: "p",  value: "4",   responsive: null, pseudo: null }
- *   "chai-sm:hover:bg-red-500" → { utility: "bg", value: "red-500", responsive: "sm", pseudo: "hover" }
- *   "chai-w-[300px]"        → { utility: "w",  value: "[300px]", responsive: null, pseudo: null }
+ *   "head-p-4"              → { utility: "p",  value: "4",   responsive: null, pseudo: null }
+ *   "head-sm:hover:bg-red-500" → { utility: "bg", value: "red-500", responsive: "sm", pseudo: "hover" }
+ *   "head-w-[300px]"        → { utility: "w",  value: "[300px]", responsive: null, pseudo: null }
  */
 
 const VARIANT_REGEX = /^(.+):(.+)$/;
 
 /**
  * Parse a single class name into a structured token.
- * @param {string} className - The full class name (e.g., "chai-p-4")
+ * @param {string} className - The full class name (e.g., "head-p-4")
  * @param {object} config    - The resolved config
  * @returns {object|null}    - Parsed token or null if not a valid chai class
  */
@@ -144,7 +144,7 @@ function parseUtilityValue(raw) {
 }
 
 /**
- * Extract all chai-* class names from an element's classList.
+ * Extract all head-* class names from an element's classList.
  * @param {Element} element
  * @param {object} config
  * @returns {string[]}

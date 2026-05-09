@@ -1,12 +1,12 @@
 /**
- * Default configuration for Chai-Tailwind.
+ * Default configuration for head-Tailwind.
  * All values can be overridden via chai.config.js or the init() options.
  */
 export const defaultConfig = {
   /** The class prefix to scan for */
-  prefix: 'chai',
+  prefix: 'head',
 
-  /** Whether to remove chai-* classes from elements after processing */
+  /** Whether to remove head-* classes from elements after processing */
   removeClassesAfterProcessing: false,
 
   /** Enable console warnings for unrecognized classes */

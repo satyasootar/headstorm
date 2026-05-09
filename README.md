@@ -1,19 +1,19 @@
-# ☕ Chai-Tailwind
+# ☕ head-Tailwind
 
-> A lightweight, zero-dependency, runtime utility-first CSS engine. Write `chai-*` classes in your HTML, get instant inline styles — **no build step required**.
+> A lightweight, zero-dependency, runtime utility-first CSS engine. Write `head-*` classes in your HTML, get instant inline styles — **no build step required**.
 
-[![npm version](https://img.shields.io/npm/v/chai-tailwind.svg)](https://www.npmjs.com/package/chai-tailwind)
+[![npm version](https://img.shields.io/npm/v/head-tailwind.svg)](https://www.npmjs.com/package/head-tailwind)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Bundle Size](https://img.shields.io/bundlephobia/minzip/chai-tailwind)](https://bundlephobia.com/package/chai-tailwind)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/head-tailwind)](https://bundlephobia.com/package/head-tailwind)
 
 ---
 
-## ✨ What is Chai-Tailwind?
+## ✨ What is head-Tailwind?
 
-Chai-Tailwind brings Tailwind-like utility classes to your HTML **at runtime**. No PostCSS, no CLI, no purging — just drop a script tag or import the module and your `chai-*` classes become live styles.
+head-Tailwind brings Tailwind-like utility classes to your HTML **at runtime**. No PostCSS, no CLI, no purging — just drop a script tag or import the module and your `head-*` classes become live styles.
 
 ```html
-<div class="chai-flex chai-justify-center chai-items-center chai-p-8 chai-bg-blue-500 chai-text-white chai-rounded-xl">
+<div class="head-flex head-justify-center head-items-center head-p-8 head-bg-blue-500 head-text-white head-rounded-xl">
   Hello, Chai! ☕
 </div>
 ```
@@ -23,11 +23,11 @@ Chai-Tailwind brings Tailwind-like utility classes to your HTML **at runtime**. 
 - 🚀 **Zero build step** — works instantly via `<script>` tag or ESM import
 - 📦 **Zero dependencies** — pure JavaScript, ~25KB minified
 - 🎨 **100+ utility classes** — spacing, colors, typography, borders, layout, flexbox, sizing, effects
-- 📱 **Responsive variants** — `chai-sm:p-4`, `chai-md:flex`, `chai-lg:text-xl`
-- 🖱️ **Pseudo-class variants** — `chai-hover:bg-red-500`, `chai-focus:border-blue-500`
+- 📱 **Responsive variants** — `head-sm:p-4`, `head-md:flex`, `head-lg:text-xl`
+- 🖱️ **Pseudo-class variants** — `head-hover:bg-red-500`, `head-focus:border-blue-500`
 - 🔄 **Dynamic DOM updates** — MutationObserver auto-styles new elements
 - 🔌 **Plugin system** — extend with custom utilities
-- 🎯 **Arbitrary values** — `chai-w-[300px]`, `chai-bg-[#ff6600]`
+- 🎯 **Arbitrary values** — `head-w-[300px]`, `head-bg-[#ff6600]`
 - ⚡ **Performance optimized** — LRU cache, batched DOM writes, debounced observer
 
 ---
@@ -37,14 +37,14 @@ Chai-Tailwind brings Tailwind-like utility classes to your HTML **at runtime**. 
 ### npm / yarn / pnpm
 
 ```bash
-npm install chai-tailwind
+npm install head-tailwind
 ```
 
 ### CDN (Script Tag)
 
 ```html
 <!-- Auto-initializes on DOMContentLoaded -->
-<script src="https://unpkg.com/chai-tailwind/dist/index.global.js"></script>
+<script src="https://unpkg.com/head-tailwind/dist/index.global.js"></script>
 ```
 
 ---
@@ -57,13 +57,13 @@ npm install chai-tailwind
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://unpkg.com/chai-tailwind/dist/index.global.js"></script>
+  <script src="https://unpkg.com/head-tailwind/dist/index.global.js"></script>
 </head>
 <body>
-  <div class="chai-flex chai-justify-center chai-items-center chai-min-h-screen chai-bg-gray-900">
-    <div class="chai-p-8 chai-bg-white chai-rounded-2xl chai-shadow-xl">
-      <h1 class="chai-text-3xl chai-font-bold chai-text-gray-800">Hello, World!</h1>
-      <p class="chai-mt-4 chai-text-gray-500 chai-text-lg">Powered by Chai-Tailwind ☕</p>
+  <div class="head-flex head-justify-center head-items-center head-min-h-screen head-bg-gray-900">
+    <div class="head-p-8 head-bg-white head-rounded-2xl head-shadow-xl">
+      <h1 class="head-text-3xl head-font-bold head-text-gray-800">Hello, World!</h1>
+      <p class="head-mt-4 head-text-gray-500 head-text-lg">Powered by head-Tailwind ☕</p>
     </div>
   </div>
 </body>
@@ -73,7 +73,7 @@ npm install chai-tailwind
 ### Option 2: ESM Import
 
 ```js
-import { init } from 'chai-tailwind';
+import { init } from 'head-tailwind';
 
 // Initialize with default config
 init();
@@ -88,7 +88,7 @@ init({
 ### Option 3: CommonJS
 
 ```js
-const { init } = require('chai-tailwind');
+const { init } = require('head-tailwind');
 init();
 ```
 
@@ -100,12 +100,12 @@ init();
 
 | Class | CSS Output |
 |---|---|
-| `chai-p-{n}` | `padding: {scale}` |
-| `chai-pt-{n}` / `chai-pb-{n}` / `chai-pl-{n}` / `chai-pr-{n}` | Directional padding |
-| `chai-px-{n}` / `chai-py-{n}` | Horizontal / Vertical padding |
-| `chai-m-{n}` | `margin: {scale}` |
-| `chai-mt-{n}` / `chai-mb-{n}` / `chai-ml-{n}` / `chai-mr-{n}` | Directional margin |
-| `chai-mx-auto` | Center horizontally |
+| `head-p-{n}` | `padding: {scale}` |
+| `head-pt-{n}` / `head-pb-{n}` / `head-pl-{n}` / `head-pr-{n}` | Directional padding |
+| `head-px-{n}` / `head-py-{n}` | Horizontal / Vertical padding |
+| `head-m-{n}` | `margin: {scale}` |
+| `head-mt-{n}` / `head-mb-{n}` / `head-ml-{n}` / `head-mr-{n}` | Directional margin |
+| `head-mx-auto` | Center horizontally |
 
 **Scale:** 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96
 
@@ -113,9 +113,9 @@ init();
 
 | Class | CSS Output |
 |---|---|
-| `chai-bg-{color}` | `background-color: {color}` |
-| `chai-text-{color}` | `color: {color}` |
-| `chai-border-{color}` | `border-color: {color}` |
+| `head-bg-{color}` | `background-color: {color}` |
+| `head-text-{color}` | `color: {color}` |
+| `head-border-{color}` | `border-color: {color}` |
 
 **Palette:** slate, gray, zinc, neutral, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose + white, black, transparent
 
@@ -125,74 +125,74 @@ init();
 
 | Class | CSS Output |
 |---|---|
-| `chai-text-{size}` | `font-size` — xs, sm, base, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl, 7xl, 8xl, 9xl |
-| `chai-font-{weight}` | `font-weight` — thin, extralight, light, normal, medium, semibold, bold, extrabold, black |
-| `chai-text-left` / `center` / `right` / `justify` | `text-align` |
-| `chai-leading-{value}` | `line-height` |
-| `chai-tracking-{value}` | `letter-spacing` |
-| `chai-italic` / `chai-not-italic` | `font-style` |
-| `chai-underline` / `chai-line-through` / `chai-no-underline` | `text-decoration` |
-| `chai-uppercase` / `chai-lowercase` / `chai-capitalize` | `text-transform` |
-| `chai-truncate` | Overflow ellipsis |
+| `head-text-{size}` | `font-size` — xs, sm, base, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl, 7xl, 8xl, 9xl |
+| `head-font-{weight}` | `font-weight` — thin, extralight, light, normal, medium, semibold, bold, extrabold, black |
+| `head-text-left` / `center` / `right` / `justify` | `text-align` |
+| `head-leading-{value}` | `line-height` |
+| `head-tracking-{value}` | `letter-spacing` |
+| `head-italic` / `head-not-italic` | `font-style` |
+| `head-underline` / `head-line-through` / `head-no-underline` | `text-decoration` |
+| `head-uppercase` / `head-lowercase` / `head-capitalize` | `text-transform` |
+| `head-truncate` | Overflow ellipsis |
 
 ### Borders
 
 | Class | CSS Output |
 |---|---|
-| `chai-border` | `border-width: 1px` |
-| `chai-border-{0\|2\|4\|8}` | `border-width` |
-| `chai-border-{color}` | `border-color` |
-| `chai-border-{style}` | solid, dashed, dotted, double, none |
-| `chai-rounded` | `border-radius: 0.25rem` |
-| `chai-rounded-{size}` | none, sm, md, lg, xl, 2xl, 3xl, full |
-| `chai-rounded-{corner}` | t, b, l, r, tl, tr, bl, br |
+| `head-border` | `border-width: 1px` |
+| `head-border-{0\|2\|4\|8}` | `border-width` |
+| `head-border-{color}` | `border-color` |
+| `head-border-{style}` | solid, dashed, dotted, double, none |
+| `head-rounded` | `border-radius: 0.25rem` |
+| `head-rounded-{size}` | none, sm, md, lg, xl, 2xl, 3xl, full |
+| `head-rounded-{corner}` | t, b, l, r, tl, tr, bl, br |
 
 ### Layout
 
 | Class | CSS Output |
 |---|---|
-| `chai-flex` / `chai-grid` / `chai-block` / `chai-inline` | `display` |
-| `chai-inline-flex` / `chai-inline-block` / `chai-inline-grid` | `display` |
-| `chai-hidden` | `display: none` |
-| `chai-relative` / `chai-absolute` / `chai-fixed` / `chai-sticky` | `position` |
-| `chai-top-{n}` / `chai-bottom-{n}` / `chai-left-{n}` / `chai-right-{n}` | Positioning |
-| `chai-inset-{n}` | All sides |
-| `chai-visible` / `chai-invisible` | `visibility` |
+| `head-flex` / `head-grid` / `head-block` / `head-inline` | `display` |
+| `head-inline-flex` / `head-inline-block` / `head-inline-grid` | `display` |
+| `head-hidden` | `display: none` |
+| `head-relative` / `head-absolute` / `head-fixed` / `head-sticky` | `position` |
+| `head-top-{n}` / `head-bottom-{n}` / `head-left-{n}` / `head-right-{n}` | Positioning |
+| `head-inset-{n}` | All sides |
+| `head-visible` / `head-invisible` | `visibility` |
 
 ### Flexbox
 
 | Class | CSS Output |
 |---|---|
-| `chai-flex-row` / `chai-flex-col` | `flex-direction` |
-| `chai-flex-wrap` / `chai-flex-nowrap` | `flex-wrap` |
-| `chai-justify-{value}` | start, end, center, between, around, evenly |
-| `chai-items-{value}` | start, end, center, baseline, stretch |
-| `chai-self-{value}` | `align-self` |
-| `chai-gap-{n}` | `gap` |
-| `chai-gap-x-{n}` / `chai-gap-y-{n}` | Column/row gap |
-| `chai-grow` / `chai-shrink` | Flex grow/shrink |
-| `chai-flex-1` / `chai-flex-auto` / `chai-flex-none` | Flex shortcuts |
+| `head-flex-row` / `head-flex-col` | `flex-direction` |
+| `head-flex-wrap` / `head-flex-nowrap` | `flex-wrap` |
+| `head-justify-{value}` | start, end, center, between, around, evenly |
+| `head-items-{value}` | start, end, center, baseline, stretch |
+| `head-self-{value}` | `align-self` |
+| `head-gap-{n}` | `gap` |
+| `head-gap-x-{n}` / `head-gap-y-{n}` | Column/row gap |
+| `head-grow` / `head-shrink` | Flex grow/shrink |
+| `head-flex-1` / `head-flex-auto` / `head-flex-none` | Flex shortcuts |
 
 ### Sizing
 
 | Class | CSS Output |
 |---|---|
-| `chai-w-{n}` | `width` — scale values, full, screen, auto, min, max, fit |
-| `chai-h-{n}` | `height` |
-| `chai-min-w-{n}` / `chai-min-h-{n}` | Min dimensions |
-| `chai-max-w-{n}` / `chai-max-h-{n}` | Max dimensions — xs, sm, md, lg, xl, 2xl–7xl, prose, screen-* |
-| `chai-w-1/2` / `chai-w-1/3` etc. | Fractional widths |
+| `head-w-{n}` | `width` — scale values, full, screen, auto, min, max, fit |
+| `head-h-{n}` | `height` |
+| `head-min-w-{n}` / `head-min-h-{n}` | Min dimensions |
+| `head-max-w-{n}` / `head-max-h-{n}` | Max dimensions — xs, sm, md, lg, xl, 2xl–7xl, prose, screen-* |
+| `head-w-1/2` / `head-w-1/3` etc. | Fractional widths |
 
 ### Effects
 
 | Class | CSS Output |
 |---|---|
-| `chai-opacity-{0-100}` | `opacity` |
-| `chai-shadow` / `chai-shadow-{size}` | sm, md, lg, xl, 2xl, inner, none |
-| `chai-cursor-{type}` | pointer, default, text, move, grab, etc. |
-| `chai-overflow-{value}` | auto, hidden, clip, visible, scroll |
-| `chai-overflow-x-{value}` / `chai-overflow-y-{value}` | Axis overflow |
-| `chai-z-{n}` | `z-index` |
+| `head-opacity-{0-100}` | `opacity` |
+| `head-shadow` / `head-shadow-{size}` | sm, md, lg, xl, 2xl, inner, none |
+| `head-cursor-{type}` | pointer, default, text, move, grab, etc. |
+| `head-overflow-{value}` | auto, hidden, clip, visible, scroll |
+| `head-overflow-x-{value}` / `head-overflow-y-{value}` | Axis overflow |
+| `head-z-{n}` | `z-index` |
 
 ---
 
@@ -201,18 +201,18 @@ init();
 Use breakpoint prefixes to apply styles at specific screen widths:
 
 ```html
-<div class="chai-p-4 chai-sm:p-6 chai-md:p-8 chai-lg:p-12">
+<div class="head-p-4 head-sm:p-6 head-md:p-8 head-lg:p-12">
   Responsive padding!
 </div>
 ```
 
 | Prefix | Min Width |
 |---|---|
-| `chai-sm:` | 640px |
-| `chai-md:` | 768px |
-| `chai-lg:` | 1024px |
-| `chai-xl:` | 1280px |
-| `chai-2xl:` | 1536px |
+| `head-sm:` | 640px |
+| `head-md:` | 768px |
+| `head-lg:` | 1024px |
+| `head-xl:` | 1280px |
+| `head-2xl:` | 1536px |
 
 > Note: Responsive variants inject `@media` rules into a managed `<style>` tag since inline styles can't express media queries.
 
@@ -221,7 +221,7 @@ Use breakpoint prefixes to apply styles at specific screen widths:
 ## 🖱️ Pseudo-Class Variants
 
 ```html
-<button class="chai-bg-blue-500 chai-hover:bg-blue-700 chai-focus:border-blue-300 chai-cursor-pointer chai-text-white chai-p-4 chai-rounded-lg">
+<button class="head-bg-blue-500 head-hover:bg-blue-700 head-focus:border-blue-300 head-cursor-pointer head-text-white head-p-4 head-rounded-lg">
   Hover me!
 </button>
 ```
@@ -235,7 +235,7 @@ Supported: `hover`, `focus`, `active`, `visited`, `disabled`, `focus-within`, `f
 Use square brackets for any custom value:
 
 ```html
-<div class="chai-w-[300px] chai-h-[200px] chai-bg-[#1a1a2e] chai-text-[14px] chai-p-[1.5rem]">
+<div class="head-w-[300px] head-h-[200px] head-bg-[#1a1a2e] head-text-[14px] head-p-[1.5rem]">
   Custom values!
 </div>
 ```
@@ -245,13 +245,13 @@ Use square brackets for any custom value:
 ## ⚙️ Configuration
 
 ```js
-import { init } from 'chai-tailwind';
+import { init } from 'head-tailwind';
 
 init({
   // Disable console warnings for unknown classes
   devMode: false,
 
-  // Remove chai-* classes after processing
+  // Remove head-* classes after processing
   removeClassesAfterProcessing: false,
 
   // Custom breakpoints
@@ -286,7 +286,7 @@ init({
 Create custom utilities by registering plugins:
 
 ```js
-import { init, registerPlugin, createPlugin } from 'chai-tailwind';
+import { init, registerPlugin, createPlugin } from 'head-tailwind';
 
 const gradientPlugin = createPlugin({
   name: 'gradients',
@@ -308,19 +308,19 @@ const gradientPlugin = createPlugin({
 init();
 registerPlugin(gradientPlugin);
 
-// Now use: <div class="chai-gradient-sunset">...</div>
+// Now use: <div class="head-gradient-sunset">...</div>
 ```
 
 ---
 
 ## 🔄 Dynamic DOM Updates
 
-Chai-Tailwind automatically watches for DOM changes via MutationObserver:
+head-Tailwind automatically watches for DOM changes via MutationObserver:
 
 ```js
 // Elements added dynamically are automatically styled
 const div = document.createElement('div');
-div.className = 'chai-p-4 chai-bg-green-500 chai-rounded-lg';
+div.className = 'head-p-4 head-bg-green-500 head-rounded-lg';
 document.body.appendChild(div); // ← styled automatically!
 ```
 
@@ -354,7 +354,7 @@ Create a validated plugin object.
 ## 📁 Project Structure
 
 ```
-chai-tailwind/
+head-tailwind/
 ├── src/
 │   ├── index.js              # Public API entry point
 │   ├── core/
@@ -386,4 +386,4 @@ chai-tailwind/
 
 ## 📄 License
 
-[MIT](LICENSE) © Chai-Tailwind Contributors
+[MIT](LICENSE) © head-Tailwind Contributors

@@ -5,15 +5,15 @@ describe('StyleCache', () => {
   it('should store and retrieve values', () => {
     const cache = new StyleCache();
     const styles = [{ property: 'padding', value: '1rem' }];
-    cache.set('chai-p-4', styles);
-    expect(cache.has('chai-p-4')).toBe(true);
-    expect(cache.get('chai-p-4')).toEqual(styles);
+    cache.set('head-p-4', styles);
+    expect(cache.has('head-p-4')).toBe(true);
+    expect(cache.get('head-p-4')).toEqual(styles);
   });
 
   it('should return null for missing keys', () => {
     const cache = new StyleCache();
-    expect(cache.get('chai-nonexistent')).toBeNull();
-    expect(cache.has('chai-nonexistent')).toBe(false);
+    expect(cache.get('head-nonexistent')).toBeNull();
+    expect(cache.has('head-nonexistent')).toBe(false);
   });
 
   it('should evict oldest entries when at capacity', () => {
