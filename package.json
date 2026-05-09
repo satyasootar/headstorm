@@ -1,5 +1,5 @@
 {
-  "name": "headwind",
+  "name": "headwind-engine",
   "version": "1.0.0",
   "description": "A lightweight runtime utility-first CSS engine. Write head-* classes, get instant inline styles — no build step required.",
   "type": "module",
@@ -43,7 +43,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/satyasootar/headstorm.git"
   },
   "devDependencies": {
     "jsdom": "^26.1.0",
