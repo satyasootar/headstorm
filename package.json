@@ -1,0 +1,54 @@
+{
+  "name": "headwind",
+  "version": "1.0.0",
+  "description": "A lightweight runtime utility-first CSS engine. Write head-* classes, get instant inline styles — no build step required.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "browser": "./dist/index.global.js",
+  "unpkg": "./dist/index.global.js",
+  "jsdelivr": "./dist/index.global.js",
+  "exports": {
+    ".": {
+      "browser": "./dist/index.global.js",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "npx publint",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "css",
+    "utility",
+    "tailwind",
+    "runtime",
+    "inline-styles",
+    "dom",
+    "lightweight",
+    "zero-dependency",
+    "css-engine",
+    "chai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "tsup": "^8.4.0",
+    "typescript": "^6.0.3",
+    "vitest": "^3.1.0"
+  }
+}

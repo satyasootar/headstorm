@@ -1,0 +1,8 @@
+src/
+tests/
+demo/
+coverage/
+.gitignore
+vitest.config.js
+tsup.config.js
+*.log
