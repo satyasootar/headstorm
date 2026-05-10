@@ -1,7 +1,8 @@
 /**
  * Effects Utilities
- * Handles: opacity, shadow, cursor, overflow, z-index
+ * Handles: opacity, shadow, cursor, overflow, z-index, ring
  */
+import { resolveColor } from './colors.js';
 
 export function match(token, config) {
   const { utility, value } = token;
@@ -51,6 +52,30 @@ export function match(token, config) {
     if (value === 'auto') return [{ property: 'zIndex', value: 'auto' }];
     if (value.startsWith('[') && value.endsWith(']')) return [{ property: 'zIndex', value: value.slice(1, -1) }];
     if (/^\d+$/.test(value)) return [{ property: 'zIndex', value }];
+  }
+
+  // ring
+  if (utility === 'ring' || utility.startsWith('ring-')) {
+    // ring -> ring width 3px
+    // ring-2 -> ring width 2px
+    // ring-red-500 -> ring color red-500
+    
+    if (utility === 'ring' && !value) {
+      return [{ property: 'boxShadow', value: '0 0 0 3px rgba(59, 130, 246, 0.5)' }];
+    }
+    
+    // ring-{color}
+    if (utility === 'ring' && value) {
+      const color = resolveColor(value, config);
+      if (color) {
+        return [{ property: 'boxShadow', value: `0 0 0 3px ${color}` }];
+      }
+      
+      // ring-{width}
+      if (/^\d+$/.test(value)) {
+        return [{ property: 'boxShadow', value: `0 0 0 ${value}px rgba(59, 130, 246, 0.5)` }];
+      }
+    }
   }
 
   return null;

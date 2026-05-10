@@ -1,7 +1,8 @@
 /**
- * head-Tailwind Applicator
+ * Chai Style Applicator
  * Applies resolved styles to DOM elements.
  * Handles inline styles, responsive (@media), and pseudo-class variants.
+ * 2. Variant injector: Injects @media and pseudo-class rules into <style id="chai-variants">.
  */
 
 let idCounter = 0;
@@ -14,8 +15,8 @@ const injectedRules = new Map();
 function getStyleElement() {
   if (styleElement && styleElement.parentNode) return styleElement;
   styleElement = document.createElement('style');
-  styleElement.id = 'headwind-dynamic';
-  styleElement.setAttribute('data-head', 'true');
+  styleElement.id = 'chai-variants';
+  styleElement.setAttribute('data-chai', 'true');
   document.head.appendChild(styleElement);
   return styleElement;
 }
@@ -24,10 +25,10 @@ function getStyleElement() {
  * Generate a unique ID for an element (for CSS targeting).
  */
 function getElementId(element) {
-  let id = element.getAttribute('data-head-id');
+  let id = element.getAttribute('data-chai-id');
   if (!id) {
-    id = 'head-' + (++idCounter);
-    element.setAttribute('data-head-id', id);
+    id = 'chai-' + (++idCounter);
+    element.setAttribute('data-chai-id', id);
   }
   return id;
 }
@@ -63,7 +64,7 @@ export function applyStyles(element, styleGroups, config) {
     const sheet = getStyleElement();
 
     for (const group of cssRules) {
-      const selector = `[data-head-id="${elementId}"]`;
+      const selector = `[data-chai-id="${elementId}"]`;
       const pseudoSuffix = group.pseudo ? `:${group.pseudo}` : '';
       const declarations = group.declarations
         .map(d => `${camelToKebab(d.property)}: ${d.value}`)

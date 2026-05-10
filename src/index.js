@@ -1,14 +1,12 @@
 /**
- * Headwind
- * A lightweight runtime utility-first CSS engine.
+ * Chai
  *
- * Usage (ESM):
- *   import { init, scan, destroy, registerPlugin, createPlugin } from 'headwind';
- *   init({ devMode: false });
+ * A lightweight, runtime utility-first CSS engine.
  *
- * Usage (<script> tag):
- *   <script src="headwind/dist/index.global.js"></script>
- *   <!-- Auto-initializes on DOMContentLoaded -->
+ * Usage:
+ *   import { init, scan, destroy, registerPlugin, createPlugin } from 'chai-tailwind';
+ *
+ *   <script src="chai-tailwind/dist/index.global.js"></script>
  */
 
 export { init, scan, observe, destroy, registerPlugin, configure } from './core/engine.js';
@@ -27,8 +25,8 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   const autoInit = () => {
     // Only auto-init if no one has called init() manually
     // Check for a global flag or if the engine is already initialized
-    if (!window.__headwindInitialized) {
-      window.__headwindInitialized = true;
+    if (!window.__chaiInitialized) {
+      window.__chaiInitialized = true;
       init();
     }
   };

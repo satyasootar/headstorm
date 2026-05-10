@@ -126,5 +126,18 @@ export function match(token, config) {
     if (value === 'keep') return [{ property: 'wordBreak', value: 'keep-all' }];
   }
 
+  // text-wrap
+  if (utility === 'text' && (value === 'wrap' || value === 'nowrap' || value === 'balance' || value === 'pretty')) {
+    return [{ property: 'textWrap', value }];
+  }
+
+  // font-variant-numeric
+  if (utility === 'tabular-nums') {
+    return [{ property: 'fontVariantNumeric', value: 'tabular-nums' }];
+  }
+  if (utility === 'proportional-nums') {
+    return [{ property: 'fontVariantNumeric', value: 'proportional-nums' }];
+  }
+
   return null;
 }

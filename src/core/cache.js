@@ -1,5 +1,5 @@
 /**
- * head-Tailwind Cache
+ * Chai Cache
  * Simple Map-based cache with configurable max size.
  * Evicts oldest entries when capacity is exceeded.
  */

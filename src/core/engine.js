@@ -1,5 +1,5 @@
 /**
- * head-Tailwind Engine
+ * Chai Engine
  * Main orchestrator: init, scan, observe, destroy.
  */
 import { loadConfig } from '../config/loader.js';
@@ -14,6 +14,7 @@ let cache = null;
 let observer = null;
 let initialized = false;
 let debounceTimer = null;
+let plugins = [];
 
 /**
  * Configure the engine without initializing.
@@ -27,7 +28,7 @@ export function configure(userConfig = {}) {
 }
 
 /**
- * Initialize head-Tailwind: load config, scan DOM, start observing.
+ * Initialize Chai: load config, scan DOM, start observing.
  * @param {object} [userConfig] - Optional config overrides
  * @param {object} [options]
  * @param {Element} [options.root] - Root element to scan (default: document.body)
@@ -53,7 +54,7 @@ export function init(userConfig = {}, options = {}) {
 }
 
 /**
- * Scan a root element for head-* classes and apply styles.
+ * Scan a root element for chai-* classes and apply styles.
  * @param {Element} [root] - Root element (default: document.body)
  */
 export function scan(root) {
@@ -77,7 +78,7 @@ export function scan(root) {
 }
 
 /**
- * Process a single element: parse its head-* classes, resolve, and apply.
+ * Process a single element: parse its chai-* classes, resolve, and apply.
  * @param {Element} element
  */
 function processElement(element) {
@@ -194,14 +195,18 @@ function handleMutations(mutations) {
 }
 
 /**
- * Register a plugin.
+ * Register a plugin for custom utilities.
  * @param {{ name: string, utilities: object }} plugin
  */
 export function registerPlugin(plugin) {
   if (!plugin || !plugin.utilities) {
-    console.warn('[headwind] Invalid plugin:', plugin);
+    if (currentConfig && currentConfig.devMode) {
+      console.warn('[chai] Invalid plugin:', plugin);
+    }
     return;
   }
+
+  plugins.push(plugin);
 
   // Convert plugin utilities into a module-compatible format
   const mod = {

@@ -1,9 +1,9 @@
 /**
- * head-Tailwind Plugin API
+ * Chai Plugin API
  * Provides a clean interface for creating and registering plugins.
  *
  * Usage:
- *   import { createPlugin } from 'head-tailwind';
+ *   import { createPlugin } from 'chai-tailwind';
  *
  *   const myPlugin = createPlugin({
  *     name: 'gradient',
@@ -23,20 +23,21 @@
  */
 export function createPlugin(definition) {
   if (!definition || typeof definition !== 'object') {
-    throw new Error('[head-tailwind] Plugin definition must be an object');
+    throw new Error('[chai] Plugin definition must be an object');
   }
 
   if (!definition.name || typeof definition.name !== 'string') {
-    throw new Error('[head-tailwind] Plugin must have a string "name" property');
+    throw new Error('[chai] Plugin must have a string "name" property');
   }
 
   if (!definition.utilities || typeof definition.utilities !== 'object') {
-    throw new Error('[head-tailwind] Plugin must have a "utilities" object');
+    throw new Error('[chai] Plugin must have a "utilities" object');
   }
 
-  for (const [key, handler] of Object.entries(definition.utilities)) {
-    if (typeof handler !== 'function') {
-      throw new Error(`[head-tailwind] Plugin "${definition.name}" utility "${key}" must be a function`);
+  // Basic validation of utility functions
+  for (const key in definition.utilities) {
+    if (typeof definition.utilities[key] !== 'function') {
+      throw new Error(`[chai] Plugin "${definition.name}" utility "${key}" must be a function`);
     }
   }
 

@@ -11,14 +11,14 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should apply padding to elements', () => {
-    document.body.innerHTML = '<div class="head-p-4" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-p-4" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.padding).toBe('1rem');
   });
 
   it('should apply multiple utilities to the same element', () => {
-    document.body.innerHTML = '<div class="head-p-4 head-m-2 head-bg-red-500" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-p-4 chai-m-2 chai-bg-red-500" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.padding).toBe('1rem');
@@ -27,7 +27,7 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should apply flex utilities', () => {
-    document.body.innerHTML = '<div class="head-flex head-justify-center head-items-center" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-flex chai-justify-center chai-items-center" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.display).toBe('flex');
@@ -36,7 +36,7 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should apply typography utilities', () => {
-    document.body.innerHTML = '<p class="head-text-center head-text-xl head-font-bold" id="test"></p>';
+    document.body.innerHTML = '<p class="chai-text-center chai-text-xl chai-font-bold" id="test"></p>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.textAlign).toBe('center');
@@ -45,7 +45,7 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should apply border utilities', () => {
-    document.body.innerHTML = '<div class="head-border head-border-2 head-rounded-lg" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-border chai-border-2 chai-rounded-lg" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.borderWidth).toBe('2px');
@@ -53,7 +53,7 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should apply sizing utilities', () => {
-    document.body.innerHTML = '<div class="head-w-full head-h-screen" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-w-full chai-h-screen" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.width).toBe('100%');
@@ -62,9 +62,9 @@ describe('Integration: DOM Style Application', () => {
 
   it('should handle multiple elements', () => {
     document.body.innerHTML = `
-      <div class="head-p-2" id="a"></div>
-      <div class="head-p-4" id="b"></div>
-      <div class="head-m-8" id="c"></div>
+      <div class="chai-p-2" id="a"></div>
+      <div class="chai-p-4" id="b"></div>
+      <div class="chai-m-8" id="c"></div>
     `;
     init({}, { observe: false });
     expect(document.getElementById('a').style.padding).toBe('0.5rem');
@@ -73,14 +73,14 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should ignore non-chai classes', () => {
-    document.body.innerHTML = '<div class="regular-class head-p-4" id="test"></div>';
+    document.body.innerHTML = '<div class="regular-class chai-p-4" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.padding).toBe('1rem');
   });
 
   it('should apply directional spacing', () => {
-    document.body.innerHTML = '<div class="head-px-4 head-my-2" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-px-4 chai-my-2" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.paddingLeft).toBe('1rem');
@@ -90,7 +90,7 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should apply effects utilities', () => {
-    document.body.innerHTML = '<div class="head-opacity-50 head-cursor-pointer" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-opacity-50 chai-cursor-pointer" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.opacity).toBe('0.5');
@@ -99,8 +99,8 @@ describe('Integration: DOM Style Application', () => {
 
   it('should handle nested elements', () => {
     document.body.innerHTML = `
-      <div class="head-flex" id="parent">
-        <div class="head-p-4 head-bg-blue-500" id="child"></div>
+      <div class="chai-flex" id="parent">
+        <div class="chai-p-4 chai-bg-blue-500" id="child"></div>
       </div>
     `;
     init({}, { observe: false });
@@ -110,7 +110,7 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should support arbitrary values', () => {
-    document.body.innerHTML = '<div class="head-w-[300px] head-p-[24px]" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-w-[300px] chai-p-[24px]" id="test"></div>';
     init({}, { observe: false });
     const el = document.getElementById('test');
     expect(el.style.width).toBe('300px');
@@ -118,7 +118,7 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should respect custom config', () => {
-    document.body.innerHTML = '<div class="head-p-4" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-p-4" id="test"></div>';
     init({
       spacingScale: { '4': '2rem' },  // Override scale
     }, { observe: false });
@@ -127,11 +127,11 @@ describe('Integration: DOM Style Application', () => {
   });
 
   it('should work with re-initialization', () => {
-    document.body.innerHTML = '<div class="head-p-4" id="test"></div>';
+    document.body.innerHTML = '<div class="chai-p-4" id="test"></div>';
     init({}, { observe: false });
     expect(document.getElementById('test').style.padding).toBe('1rem');
     destroy();
-    document.body.innerHTML = '<div class="head-m-8" id="test2"></div>';
+    document.body.innerHTML = '<div class="chai-m-8" id="test2"></div>';
     init({}, { observe: false });
     expect(document.getElementById('test2').style.margin).toBe('2rem');
   });

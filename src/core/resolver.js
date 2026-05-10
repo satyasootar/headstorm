@@ -1,5 +1,5 @@
 /**
- * head-Tailwind Resolver
+ * Chai Style Resolver
  * Takes a parsed token and resolves it to CSS property/value pairs.
  */
 import { resolveUtility } from '../utilities/index.js';
@@ -16,7 +16,7 @@ export function resolve(token, config) {
   const result = resolveUtility(token, config);
 
   if (!result && config.devMode) {
-    console.warn(`[headwind] Unknown utility class: "${token.original}"`);
+    console.warn(`[chai] Unknown utility class: "${token.original}"`);
   }
 
   return result;

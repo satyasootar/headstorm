@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="chai-antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chai Tailwind CSS Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="../../dist/index.global.js"></script>
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Custom Scrollbar for Textarea to keep it sleek */
+    textarea::-webkit-scrollbar {
+      width: 8px;
+    }
+    textarea::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    textarea::-webkit-scrollbar-thumb {
+      background-color: #334155;
+      border-radius: 4px;
+    }
+
+    /* Basic syntax coloring effect for the textarea (plain text but themed) */
+    .editor-textarea {
+      tab-size: 2;
+      color: #e2e8f0;
+    }
+    .editor-textarea:focus {
+      outline: none;
+    }
+  </style>
+
+  <script>
+    // 1. Setup Chai Plugin for Gradients
+    // We register a custom plugin to demonstrate extensibility.
+    window.addEventListener('DOMContentLoaded', () => {
+      // The engine is available globally as `chai` because we included index.global.js
+      if (window.chai) {
+        window.chai.registerPlugin({
+          name: 'custom-utilities',
+          utilities: {
+            'bg-clip-text': [{ property: 'backgroundClip', value: 'text' }, { property: '-webkit-background-clip', value: 'text' }],
+            'text-transparent': [{ property: 'color', value: 'transparent' }, { property: '-webkit-text-fill-color', value: 'transparent' }],
+            'bg-gradient-to-r': [{ property: 'backgroundImage', value: 'linear-gradient(to right, var(--chai-gradient-stops))' }],
+            'bg-gradient-to-t': [{ property: 'backgroundImage', value: 'linear-gradient(to top, var(--chai-gradient-stops))' }],
+            'from': (val, config) => {
+              const color = resolveColorHelper(val, config);
+              return [{ property: '--chai-gradient-stops', value: `${color}, var(--chai-gradient-to, rgba(255,255,255,0))` }];
+            },
+            'to': (val, config) => {
+              const color = resolveColorHelper(val, config);
+              return [{ property: '--chai-gradient-to', value: color }];
+            },
+            'transition-all': [{ property: 'transitionProperty', value: 'all' }, { property: 'transitionTimingFunction', value: 'cubic-bezier(0.4, 0, 0.2, 1)' }, { property: 'transitionDuration', value: '150ms' }],
+            'transition-colors': [{ property: 'transitionProperty', value: 'color, background-color, border-color, text-decoration-color, fill, stroke' }, { property: 'transitionTimingFunction', value: 'cubic-bezier(0.4, 0, 0.2, 1)' }, { property: 'transitionDuration', value: '150ms' }],
+            'duration-500': [{ property: 'transitionDuration', value: '500ms' }],
+            'scale-105': [{ property: 'transform', value: 'scale(1.05)' }]
+          }
+        });
+        
+        // Helper to resolve colors for our plugin
+        function resolveColorHelper(val, config) {
+          if (val.startsWith('[') && val.endsWith(']')) return val.slice(1, -1);
+          const parts = val.split('-');
+          if (parts.length === 2 && config.colors[parts[0]]) return config.colors[parts[0]][parts[1]];
+          return config.colors[val] || val;
+        }
+
+        // Re-process body to apply our new plugins immediately
+        window.chai.scan(document.body);
+      }
+
+      // 2. Setup Live Editor and Typing Animation
+      const editor = document.getElementById('live-editor');
+      const preview = document.getElementById('live-preview');
+      
+      const finalCode = `<div class="chai-p-6 chai-w-full chai-bg-white chai-rounded-xl chai-shadow-lg chai-flex chai-items-center chai-gap-x-4 chai-transition-all chai-duration-500 chai-hover:scale-105">
+  <div class="chai-shrink-0">
+    <div class="chai-h-14 chai-w-14 chai-rounded-full chai-bg-gradient-to-r chai-from-cyan-500 chai-to-blue-500 chai-flex chai-items-center chai-justify-center chai-shadow-inner">
+      <svg class="chai-w-8 chai-h-8 chai-text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    </div>
+  </div>
+  <div>
+    <div class="chai-text-2xl chai-font-bold chai-text-slate-800">Chai Engine</div>
+    <p class="chai-text-slate-500 chai-font-medium">Zero build step required!</p>
+  </div>
+</div>`;
+
+      let currentCode = '';
+      let charIndex = 0;
+      
+      function typeWriter() {
+        if (charIndex < finalCode.length) {
+          currentCode += finalCode.charAt(charIndex);
+          editor.value = currentCode;
+          preview.innerHTML = currentCode;
+          charIndex++;
+          // Faster typing speed with slight variation
+          setTimeout(typeWriter, Math.random() * 15 + 10);
+        }
+      }
+
+      // Start typing after a short delay
+      setTimeout(typeWriter, 500);
+
+      editor.addEventListener('input', (e) => {
+        preview.innerHTML = e.target.value;
+      });
+    });
+  </script>
+</head>
+<body class="chai-bg-slate-900 chai-text-slate-50 chai-min-h-screen chai-flex chai-flex-col">
+
+  <!-- Navbar -->
+  <nav class="chai-sticky chai-top-0 chai-z-50 chai-w-full chai-backdrop-blur chai-border-b chai-border-slate-800 chai-bg-slate-900/80">
+    <div class="chai-max-w-7xl chai-mx-auto chai-px-4 chai-sm:px-6 chai-lg:px-8">
+      <div class="chai-flex chai-items-center chai-justify-between chai-h-16">
+        <div class="chai-flex chai-items-center chai-gap-2">
+          <svg class="chai-w-8 chai-h-8 chai-text-sky-400" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          <span class="chai-font-bold chai-text-xl chai-tracking-tight">Chai CSS</span>
+        </div>
+        <div class="chai-hidden chai-md:block">
+          <div class="chai-flex chai-items-baseline chai-gap-8">
+            <a href="#" class="chai-text-slate-300 chai-hover:text-white chai-font-medium chai-text-sm chai-transition-colors">Docs</a>
+            <a href="#" class="chai-text-slate-300 chai-hover:text-white chai-font-medium chai-text-sm chai-transition-colors">Components</a>
+            <a href="#" class="chai-text-slate-300 chai-hover:text-white chai-font-medium chai-text-sm chai-transition-colors">Blog</a>
+            <a href="#" class="chai-text-slate-300 chai-hover:text-white chai-font-medium chai-text-sm chai-transition-colors">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <main class="chai-flex-grow">
+    <div class="chai-relative chai-overflow-hidden">
+      <!-- Decorative Background Grid -->
+      <div class="chai-absolute chai-inset-0 chai-z-0 chai-opacity-20" style="background-image: linear-gradient(to right, #334155 1px, transparent 1px), linear-gradient(to bottom, #334155 1px, transparent 1px); background-size: 4rem 4rem;"></div>
+      
+      <div class="chai-relative chai-z-10 chai-max-w-7xl chai-mx-auto chai-px-4 chai-sm:px-6 chai-lg:px-8 chai-pt-20 chai-pb-16 chai-lg:pt-28 chai-lg:pb-24">
+        
+        <!-- Hero Text (Centered) -->
+        <div class="chai-text-center chai-max-w-3xl chai-mx-auto">
+          <h1 class="chai-text-4xl chai-tracking-tight chai-font-extrabold chai-text-white chai-sm:text-5xl chai-md:text-6xl chai-text-balance">
+            <span class="chai-block">Rapidly build modern websites</span>
+            <span class="chai-block chai-text-transparent chai-bg-clip-text chai-bg-gradient-to-r chai-from-sky-400 chai-to-cyan-300">at runtime.</span>
+          </h1>
+          <p class="chai-mt-6 chai-text-lg chai-text-slate-400 chai-sm:text-xl chai-text-balance">
+            Chai is a lightweight, utility-first CSS engine that runs directly in the browser. No Node.js required, no build step, no configuration out of the box. Just write HTML and see it styled instantly.
+          </p>
+          <div class="chai-mt-10 chai-flex chai-justify-center chai-gap-4">
+            <a href="#" class="chai-rounded-full chai-bg-sky-500 chai-px-8 chai-py-3 chai-text-sm chai-font-semibold chai-text-white chai-shadow-sm chai-hover:bg-sky-400 chai-focus-visible:outline chai-focus-visible:outline-2 chai-focus-visible:outline-offset-2 chai-focus-visible:outline-sky-400 chai-transition-colors">Get started</a>
+            <a href="https://github.com/satyasootar/chai-tailwind" class="chai-rounded-full chai-bg-slate-800 chai-px-8 chai-py-3 chai-text-sm chai-font-semibold chai-text-white chai-border chai-border-slate-700 chai-hover:bg-slate-700 chai-transition-colors chai-flex chai-items-center chai-gap-2">
+              <svg class="chai-w-5 chai-h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Live Interactive Editor (Side-by-Side) -->
+        <div class="chai-mt-16 chai-relative chai-w-full chai-rounded-2xl chai-shadow-2xl chai-bg-slate-800 chai-border chai-border-slate-700 chai-overflow-hidden">
+          
+          <!-- Editor Header -->
+          <div class="chai-flex chai-items-center chai-px-4 chai-py-3 chai-bg-slate-800 chai-border-b chai-border-slate-700">
+            <div class="chai-flex chai-space-x-2">
+              <div class="chai-w-3 chai-h-3 chai-rounded-full chai-bg-red-500"></div>
+              <div class="chai-w-3 chai-h-3 chai-rounded-full chai-bg-amber-500"></div>
+              <div class="chai-w-3 chai-h-3 chai-rounded-full chai-bg-green-500"></div>
+            </div>
+            <div class="chai-mx-auto chai-text-xs chai-text-slate-400 chai-font-mono">index.html (Live)</div>
+          </div>
+
+          <!-- Editor Split View (Left: Code, Right: Preview) -->
+          <div class="chai-flex chai-flex-col chai-lg:flex-row">
+            <!-- Code Area (Left) -->
+            <div class="chai-p-6 chai-bg-[#1e293b] chai-lg:border-r chai-border-slate-700 chai-w-full chai-lg:w-1/2">
+              <textarea id="live-editor" spellcheck="false" class="editor-textarea chai-w-full chai-h-64 chai-lg:h-96 chai-bg-transparent chai-border-none chai-resize-none chai-font-mono chai-text-sm chai-leading-relaxed"></textarea>
+            </div>
+            
+            <!-- Preview Area (Right) -->
+            <div class="chai-p-8 chai-bg-slate-100 chai-flex chai-items-center chai-justify-center chai-min-h-[250px] chai-lg:min-h-full chai-w-full chai-lg:w-1/2" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
+              <div id="live-preview" class="chai-w-full">
+                <!-- Live HTML injected here -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Decorative Glow behind editor -->
+        <div class="chai-absolute chai-bottom-0 chai-left-1/2 -chai-translate-x-1/2 chai-z-[-1] chai-w-[120%] chai-h-[50%] chai-bg-gradient-to-t chai-from-sky-500/20 chai-to-transparent chai-blur-3xl"></div>
+
+      </div>
+    </div>
+
+    <!-- Feature Grid -->
+    <div class="chai-bg-slate-900 chai-py-24 chai-sm:py-32">
+      <div class="chai-mx-auto chai-max-w-7xl chai-px-6 chai-lg:px-8">
+        <div class="chai-mx-auto chai-max-w-2xl chai-lg:text-center">
+          <h2 class="chai-text-base chai-font-semibold chai-leading-7 chai-text-sky-400">Build anything</h2>
+          <p class="chai-mt-2 chai-text-3xl chai-font-bold chai-tracking-tight chai-text-white chai-sm:text-4xl">Everything you need, directly in your HTML</p>
+          <p class="chai-mt-6 chai-text-lg chai-leading-8 chai-text-slate-400">Chai uses the exact same mental model as Tailwind. Constraint-based design, state variants, and responsive prefixes all work at runtime.</p>
+        </div>
+        
+        <div class="chai-mx-auto chai-mt-16 chai-max-w-2xl chai-sm:mt-20 chai-lg:mt-24 chai-lg:max-w-none">
+          <dl class="chai-flex chai-flex-col chai-lg:flex-row chai-max-w-xl chai-gap-x-8 chai-gap-y-16 chai-lg:max-w-none">
+            
+            <div class="chai-flex chai-flex-col chai-flex-1">
+              <dt class="chai-flex chai-items-center chai-gap-x-3 chai-text-base chai-font-semibold chai-leading-7 chai-text-white">
+                <div class="chai-h-10 chai-w-10 chai-flex chai-items-center chai-justify-center chai-rounded-lg chai-bg-sky-500/10">
+                  <svg class="chai-h-6 chai-w-6 chai-text-sky-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25l7.22-7.22a3.75 3.75 0 000-5.304M12 10.5l-6.402-6.402A3.75 3.75 0 0110.902 3M21 17.25a3.75 3.75 0 01-3.75 3.75l-6.402-6.402A3.75 3.75 0 0116.15 9M18.75 3a3.75 3.75 0 013.75 3.75l-7.22 7.22a3.75 3.75 0 000 5.304" />
+                  </svg>
+                </div>
+                Constraint-Based Design
+              </dt>
+              <dd class="chai-mt-4 chai-flex chai-flex-auto chai-flex-col chai-text-base chai-leading-7 chai-text-slate-400">
+                <p class="chai-flex-auto">A predefined scale for colors, spacing, and typography ensures consistency across your entire project.</p>
+                <div class="chai-mt-6 chai-p-4 chai-bg-slate-800 chai-rounded-lg chai-border chai-border-slate-700">
+                  <div class="chai-flex chai-gap-2">
+                    <div class="chai-w-8 chai-h-8 chai-bg-sky-400 chai-rounded"></div>
+                    <div class="chai-w-8 chai-h-8 chai-bg-sky-500 chai-rounded"></div>
+                    <div class="chai-w-8 chai-h-8 chai-bg-sky-600 chai-rounded"></div>
+                    <div class="chai-w-8 chai-h-8 chai-bg-sky-700 chai-rounded"></div>
+                  </div>
+                </div>
+              </dd>
+            </div>
+
+            <div class="chai-flex chai-flex-col chai-flex-1">
+              <dt class="chai-flex chai-items-center chai-gap-x-3 chai-text-base chai-font-semibold chai-leading-7 chai-text-white">
+                <div class="chai-h-10 chai-w-10 chai-flex chai-items-center chai-justify-center chai-rounded-lg chai-bg-emerald-500/10">
+                  <svg class="chai-h-6 chai-w-6 chai-text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-5.428l-1.59-1.59" />
+                  </svg>
+                </div>
+                State Variants
+              </dt>
+              <dd class="chai-mt-4 chai-flex chai-flex-auto chai-flex-col chai-text-base chai-leading-7 chai-text-slate-400">
+                <p class="chai-flex-auto">Style your elements on hover, focus, and active states simply by prefixing the utility.</p>
+                <div class="chai-mt-6 chai-p-4 chai-bg-slate-800 chai-rounded-lg chai-border chai-border-slate-700 chai-flex chai-items-center chai-justify-center">
+                  <button class="chai-bg-emerald-500 chai-hover:bg-emerald-400 chai-active:bg-emerald-600 chai-text-white chai-px-4 chai-py-2 chai-rounded chai-font-medium chai-transition-colors">Hover Me</button>
+                </div>
+              </dd>
+            </div>
+
+            <div class="chai-flex chai-flex-col chai-flex-1">
+              <dt class="chai-flex chai-items-center chai-gap-x-3 chai-text-base chai-font-semibold chai-leading-7 chai-text-white">
+                <div class="chai-h-10 chai-w-10 chai-flex chai-items-center chai-justify-center chai-rounded-lg chai-bg-amber-500/10">
+                  <svg class="chai-h-6 chai-w-6 chai-text-amber-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                  </svg>
+                </div>
+                Responsive Design
+              </dt>
+              <dd class="chai-mt-4 chai-flex chai-flex-auto chai-flex-col chai-text-base chai-leading-7 chai-text-slate-400">
+                <p class="chai-flex-auto">Build fully responsive layouts using `sm:`, `md:`, `lg:` prefixes without writing custom media queries.</p>
+                <div class="chai-mt-6 chai-p-4 chai-bg-slate-800 chai-rounded-lg chai-border chai-border-slate-700">
+                   <div class="chai-flex chai-flex-col chai-sm:flex-row chai-gap-2">
+                     <div class="chai-bg-slate-700 chai-h-8 chai-rounded chai-flex-1"></div>
+                     <div class="chai-bg-slate-700 chai-h-8 chai-rounded chai-flex-1"></div>
+                   </div>
+                   <div class="chai-text-xs chai-text-center chai-text-slate-500 chai-mt-2">Resize window to see columns change</div>
+                </div>
+              </dd>
+            </div>
+
+          </dl>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="chai-bg-slate-950 chai-py-12 chai-border-t chai-border-slate-800">
+    <div class="chai-mx-auto chai-max-w-7xl chai-px-6 chai-lg:px-8 chai-flex chai-flex-col chai-md:flex-row chai-justify-between chai-items-center">
+      <div class="chai-flex chai-items-center chai-gap-2">
+        <svg class="chai-w-6 chai-h-6 chai-text-slate-500" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span class="chai-text-slate-500 chai-font-semibold">Chai CSS</span>
+      </div>
+      <p class="chai-mt-4 chai-md:mt-0 chai-text-center chai-text-sm chai-leading-5 chai-text-slate-500">
+        &copy; 2026 Chai CSS. Created to make runtime styling beautiful.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
